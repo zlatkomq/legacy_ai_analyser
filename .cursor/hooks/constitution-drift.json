@@ -1,24 +1,12 @@
 {
-  "name": "constitution-drift-detector",
-  "description": "Flags when files that affect the constitution have changed",
-  "triggers": [
-    {
-      "event": "file_save",
-      "globs": [
-        "**/schema.prisma",
-        "**/migrations/**/*.sql",
-        "**/package.json",
-        "**/openapi.yaml",
-        "**/swagger.json",
-        "src/**/routes/**/*.ts",
-        "src/**/controllers/**/*.ts",
-        "src/**/middleware/**/*.ts"
-      ]
-    }
-  ],
-  "action": {
-    "type": "notify",
-    "message": "⚠️ Constitution drift detected: `{changed_file}` has changed. This file affects the {inferred_section} section of docs/ai/constitution.md. Consider re-running the relevant analyst:\n- Schema change → re-run data-model-analyst\n- Route/controller change → re-run api-contract-analyst + runtime-flow-analyst\n- package.json change → re-run dependency-analyst\n- Middleware change → re-run runtime-flow-analyst",
-    "severity": "warning"
+  "version": 1,
+  "hooks": {
+    "postToolUse": [
+      {
+        "command": ".cursor/hooks/constitution-drift-check.sh",
+        "matcher": "Edit|Write",
+        "timeout": 5
+      }
+    ]
   }
 }

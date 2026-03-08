@@ -1431,7 +1431,63 @@ any client project:
 
 ---
 
-*Cursor 2.4+ required for parallel subagent support.*
+*Cursor 2.4+ recommended for parallel subagent support (sequential fallback available for older versions).*
 *Cursor 2.5+ required for plugin packaging.*
 *Git pre-commit fallback works on any version.*
-*Last updated: March 2026 — v2.0 incorporating agency feedback*
+*Last updated: March 2026 — v2.1 with status tracking, sequential fallback, monorepo support, versioning/diffing, and auditor improvements*
+
+---
+
+## Adding a Custom Analyst Agent
+
+The pipeline is extensible — you can add new specialist agents (e.g., `security-analyst`,
+`performance-analyst`) without modifying the core framework.
+
+### 1. Create the agent definition
+
+Create `.cursor/agents/<name>.md` following the established pattern:
+
+```yaml
+---
+name: <name>
+description: >
+  <one-line purpose>
+model: inherit
+tools: Read, Glob, Grep, Bash
+---
+```
+
+Required sections in the agent body:
+- **Status tracking** — write `_status-<name>.json` on start/completion (see any existing agent for the pattern)
+- **When invoked** — numbered steps for what the agent does
+- **JSON output** — schema for `.cursor/constitution-tmp/<name>.json` (must include `"confidence": "high|medium|low"`)
+- **Markdown fragment** — template for `docs/ai/constitution-fragments/<name>.md`
+- **Rules** — constraints on agent behaviour
+
+### 2. Register the agent in the orchestrator
+
+Edit `.cursor/skills/constitution/SKILL.md`, Phase 1:
+- Add your agent to the "Specialist analysts" spawn list
+- Add it to the `expected_agents` list in Phase 0e
+
+### 3. Update the aggregator
+
+Edit `.cursor/skills/constitution-aggregator/SKILL.md`, Step 3:
+- Add your agent's JSON file to the read order
+- Map its data into the appropriate constitution section(s) in Step 4
+
+### 4. Update the curator (if adding a new constitution section)
+
+If your agent produces data that warrants a new constitution section:
+- Add the section template to `.cursor/skills/constitution-curator/SKILL.md`
+- Add a corresponding entry in the viewer's Section IDs table
+
+### 5. Update the auditor scope
+
+Edit `.cursor/agents/constitution-auditor.md`:
+- Add your agent's report to the cross-validation checks in step 5
+
+### 6. Update install.sh
+
+The installer automatically copies all `.md` files from `.cursor/agents/`,
+so no change is needed unless you add new directories or files outside agents/.

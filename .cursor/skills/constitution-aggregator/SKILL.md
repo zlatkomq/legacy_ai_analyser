@@ -4,7 +4,7 @@ description: >
   Merges all partial JSON and MD reports from .cursor/constitution-tmp/ into a
   single coherent intermediate representation, applying audit findings to flag
   uncertain content. Invoke after auditor completes.
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Constitution Aggregator
@@ -17,11 +17,12 @@ writes into `docs/ai/constitution.md`.
 ## Steps
 
 1. List all files: `ls -la .cursor/constitution-tmp/`
+   Skip `_status-*.json`, `_pipeline.json`, and `_merged.json` (if present from a previous run).
 
 2. Read the audit report FIRST: `.cursor/constitution-tmp/audit-report.json`
    This tells you which claims to accept, flag, or exclude.
 
-3. Read all other JSON files in this order:
+3. Read all other JSON report files in this order:
    - dependencies.json (tech stack — sets the frame)
    - patterns.json (architecture — shapes everything else)
    - data-model.json

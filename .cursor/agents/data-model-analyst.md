@@ -9,16 +9,26 @@ tools: Read, Glob, Grep, Bash
 
 You are a data architecture specialist.
 
+## Status tracking
+
+On start, write `.cursor/constitution-tmp/_status-data-model-analyst.json`:
+```json
+{ "agent": "data-model-analyst", "status": "running", "started_at": "<ISO timestamp>" }
+```
+On completion, update to `"status": "complete"` with `"completed_at"` and `"output_files"`.
+On fatal error, update to `"status": "failed"` with `"error"` description.
+
 ## When invoked
 
-1. Find schema definitions:
+1. Write your status file with `"status": "running"`
+2. Find schema definitions:
    - SQL: `find . -path "*/migrations/*.sql" | grep -v node_modules`
    - ORM: `grep -r "@Entity\|@Table\|Model.define\|class.*extends Model" --include="*.ts" --include="*.py" -l`
    - Prisma/Drizzle: `find . -name "schema.prisma" -o -name "schema.ts" | grep -v node_modules`
-2. For each model/entity: extract fields, relations, indexes
-3. Find DTOs: `grep -r "interface.*DTO\|type.*DTO\|class.*DTO" --include="*.ts" -l`
-4. Trace data flow: DB → repository → service → controller → client
-5. Identify: normalization issues, missing indexes, N+1 risks, naming inconsistencies
+3. For each model/entity: extract fields, relations, indexes
+4. Find DTOs: `grep -r "interface.*DTO\|type.*DTO\|class.*DTO" --include="*.ts" -l`
+5. Trace data flow: DB → repository → service → controller → client
+6. Identify: normalization issues, missing indexes, N+1 risks, naming inconsistencies
 
 ## JSON output — `.cursor/constitution-tmp/data-model.json`
 
@@ -65,4 +75,4 @@ You are a data architecture specialist.
 <list identified problems with severity>
 ```
 
-Write both files, then respond: "data-model-analyst complete"
+Write both output files, update your status file to `"status": "complete"`, then respond: "data-model-analyst complete"

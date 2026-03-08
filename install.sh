@@ -52,8 +52,17 @@ echo "  ✓ 3 skills installed"
 # 5. Copy rules and hooks
 echo "[5/6] Installing rules and hooks..."
 cp "$SCRIPT_DIR/.cursor/rules/"*.mdc .cursor/rules/
-cp "$SCRIPT_DIR/.cursor/hooks/"*.json .cursor/hooks/
-echo "  ✓ 2 rules + 1 hook installed"
+# Cursor hooks: hooks.json must live at .cursor/hooks.json (not in a subdirectory)
+if [ -f .cursor/hooks.json ]; then
+  echo "  ⚠️  .cursor/hooks.json already exists — merging manually may be needed"
+  echo "      See $SCRIPT_DIR/.cursor/hooks/constitution-drift.json for the hook config to merge"
+else
+  cp "$SCRIPT_DIR/.cursor/hooks/constitution-drift.json" .cursor/hooks.json
+  echo "  ✓ Created .cursor/hooks.json"
+fi
+cp "$SCRIPT_DIR/.cursor/hooks/constitution-drift-check.sh" .cursor/hooks/
+chmod +x .cursor/hooks/constitution-drift-check.sh
+echo "  ✓ 2 rules + 1 hook (with drift detection script) installed"
 
 # 6. Set up tmp gitignore
 echo "[6/6] Finalising..."
@@ -68,7 +77,8 @@ echo "  .cursorignore"
 echo "  .cursor/agents/           (7 subagent definitions)"
 echo "  .cursor/skills/           (3 skill definitions)"
 echo "  .cursor/rules/            (2 rule files)"
-echo "  .cursor/hooks/            (1 drift detection hook)"
+echo "  .cursor/hooks.json        (Cursor hooks config — drift detection)"
+echo "  .cursor/hooks/            (hook scripts)"
 echo "  .cursor/constitution-tmp/ (scratch space, gitignored)"
 echo "  docs/ai/                  (output directory)"
 echo ""

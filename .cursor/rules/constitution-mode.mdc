@@ -19,3 +19,4 @@ When generating or updating the constitution:
 7. Surface audit findings to the user — never silently discard contested claims
 8. Report progress after each phase: Pre-flight → Scan → Audit → Aggregate → Curate
 9. If overall audit confidence is "low": tell the user and offer to re-run specific agents
+10. Use per-agent status files (`_status-*.json`) in `.cursor/constitution-tmp/` to track pipeline progress — never rely solely on output file existence checks

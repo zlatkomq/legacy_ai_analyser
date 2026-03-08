@@ -4,7 +4,7 @@ description: >
   Reads .cursor/constitution-tmp/_merged.json and writes the final
   docs/ai/constitution.md following the canonical template. Invoke after
   aggregation completes.
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Constitution Curator
@@ -18,11 +18,39 @@ This is the document that all future AI generation work will reference.
 
 1. Read `.cursor/constitution-tmp/_merged.json`
 2. Also read all `docs/ai/constitution-fragments/*.md` for narrative context
-3. Write `docs/ai/constitution.md` following the template below exactly
-4. For any section with `needs_human_review: true`: add a visible warning block
-5. Generate `docs/ai/constitution-cheatsheet.md` — the condensed version for AISDLC agent injection (see Cheat Sheet Template below)
-6. Generate `docs/ai/constitution-viewer.html` — a self-contained interactive viewer (see Viewer Template below)
-7. Report: "Constitution written — <section count> sections, ~<word count> words. Cheat sheet and viewer generated."
+3. **Compare with existing constitution (if present):**
+   - If `docs/ai/constitution.md` already exists, read it
+   - For each of the 12 sections, compare the new data against existing content
+   - Track: added sections, removed content, modified claims, changed confidence levels, new/resolved debt items
+   - Store this diff for step 8
+4. Write `docs/ai/constitution.md` following the template below exactly
+   - Use today's date as the version in `YYYY.MM.DD` format (e.g., `2026.03.08`)
+   - Do NOT hardcode version `1.0`
+5. For any section with `needs_human_review: true`: add a visible warning block
+6. Generate `docs/ai/constitution-cheatsheet.md` — the condensed version for AISDLC agent injection (see Cheat Sheet Template below)
+7. Generate `docs/ai/constitution-viewer.html` — a self-contained interactive viewer (see Viewer Template below)
+8. **Generate changelog (if this is a re-run):**
+   - If step 3 found an existing constitution, write `docs/ai/constitution-changelog.md`:
+     ```markdown
+     # Constitution Changelog
+
+     ## [YYYY.MM.DD] (current run)
+
+     ### Changed
+     - [List section-by-section changes: added/removed/modified content]
+
+     ### Confidence changes
+     - [List sections where confidence level changed, with old → new]
+
+     ### Summary
+     X sections unchanged, Y sections modified, Z new items added
+
+     ---
+     [Preserve previous changelog entries if docs/ai/constitution-changelog.md already exists]
+     ```
+   - If this is a first run (no existing constitution), skip the changelog
+9. Report: "Constitution written — <section count> sections, ~<word count> words. Cheat sheet and viewer generated."
+   - If changelog was generated, also report: "Changelog updated with <change count> changes since previous version."
 
 ## Template
 
@@ -30,7 +58,7 @@ This is the document that all future AI generation work will reference.
 
 # constitution.md — [Project Name] AI Generation Contract
 
-> **Version:** 1.0
+> **Version:** [YYYY.MM.DD]
 > **Generated:** [date]
 > **Method:** Cursor multi-agent analysis (domain-scanner × N, api-contract-analyst,
 > data-model-analyst, dependency-analyst, pattern-analyst, runtime-flow-analyst,
@@ -300,7 +328,7 @@ The cheat sheet MUST include these sections and nothing else:
 ```markdown
 # [Project Name] — AI Constitution Cheat Sheet
 
-> Condensed from `docs/ai/constitution.md` (v[version], [date]).
+> Condensed from `docs/ai/constitution.md` (v[YYYY.MM.DD]).
 > This is the default context for all AISDLC agents. For full detail on any
 > section, reference the complete constitution.
 
@@ -395,7 +423,7 @@ Transform the merged JSON into this structure and embed it as
 ```javascript
 {
   projectName: "Project Name",
-  version: "1.0",
+  version: "YYYY.MM.DD",
   generated: "YYYY-MM-DD",
   confidence: "high|medium-high|medium|low",
   sections: [

@@ -9,16 +9,26 @@ tools: Read, Glob, Grep, Bash
 
 You are a tech stack and dependency specialist.
 
+## Status tracking
+
+On start, write `.cursor/constitution-tmp/_status-dependency-analyst.json`:
+```json
+{ "agent": "dependency-analyst", "status": "running", "started_at": "<ISO timestamp>" }
+```
+On completion, update to `"status": "complete"` with `"completed_at"` and `"output_files"`.
+On fatal error, update to `"status": "failed"` with `"error"` description.
+
 ## When invoked
 
-1. Read manifests:
+1. Write your status file with `"status": "running"`
+2. Read manifests:
    - `find . -name "package.json" -not -path "*/node_modules/*" | head -20`
    - `find . -name "requirements.txt" -o -name "pyproject.toml" -o -name "Cargo.toml" | grep -v node_modules`
-2. For each: extract name, version, classify (UI/API/DB/testing/infra/util)
-3. Identify runtime version from .nvmrc, .python-version, engines field
-4. Identify framework versions
-5. Check for: deprecated packages, security-sensitive packages, outdated versions
-6. Count deep relative imports: `grep -r "from '../../\.\." --include="*.ts" -l | wc -l`
+3. For each: extract name, version, classify (UI/API/DB/testing/infra/util)
+4. Identify runtime version from .nvmrc, .python-version, engines field
+5. Identify framework versions
+6. Check for: deprecated packages, security-sensitive packages, outdated versions
+7. Count deep relative imports: `grep -r "from '../../\.\." --include="*.ts" -l | wc -l`
 
 ## JSON output — `.cursor/constitution-tmp/dependencies.json`
 
@@ -62,4 +72,4 @@ You are a tech stack and dependency specialist.
 <list health issues with recommended actions>
 ```
 
-Write both files, then respond: "dependency-analyst complete"
+Write both output files, update your status file to `"status": "complete"`, then respond: "dependency-analyst complete"
