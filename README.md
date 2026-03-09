@@ -69,6 +69,50 @@ Generate a constitution for this codebase
 
 ---
 
+## After installing
+
+### Step 1 — Set up your target project
+
+Open your legacy project in Cursor. In agent chat, run:
+
+```
+/constitution
+```
+
+This triggers the full analysis pipeline. The agent will:
+1. Check and generate `.cursorignore` (excludes noise from analysis)
+2. Scan the codebase with parallel specialist agents
+3. Audit findings for consistency and confidence
+4. Aggregate and curate the final constitution
+
+### Step 2 — Review the output
+
+Once complete, three files are written into your project:
+
+- `docs/ai/constitution.md` — the full constitution (open this to review)
+- `docs/ai/constitution-cheatsheet.md` — condensed version injected into AI context automatically
+- `docs/ai/constitution-viewer.html` — open in a browser for an interactive view
+
+Check sections marked `[NEEDS REVIEW]` — these are areas where the analysis found low confidence or contested claims. Human validation is needed before relying on them downstream.
+
+### Step 3 — Use it in your workflow
+
+The constitution is now the base context for downstream AI work:
+
+- **Spec** — ask the AI what should change; it will use the constitution to understand current constraints
+- **Design** — ask the AI how to implement it; it will respect existing architecture, patterns, and invariants
+- **Tasks / Dev / QA** — the `constitution-reference` rule auto-injects the cheatsheet when you work on source files
+
+### Keeping it up to date
+
+| Situation | Command |
+|-----------|---------|
+| Code changed significantly | `/constitution` — full re-run |
+| Small targeted change (schema, routes, deps) | `/constitution-incremental` — re-runs only affected agents |
+| You found an error in the constitution | `/constitution-patch` — corrects a specific claim, survives re-runs |
+
+---
+
 ## What's in the plugin
 
 ```
