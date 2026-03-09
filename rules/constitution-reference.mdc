@@ -2,20 +2,13 @@
 description: >
   Inject constitution reference when working on source files. Ensures AI generation
   always checks project conventions before producing code.
-globs: ["src/**/*.ts", "src/**/*.js", "src/**/*.py", "src/**/*.java", "src/**/*.go"]
+globs: ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"]
 alwaysApply: false
 ---
 
 Before generating or modifying code in this project:
 
-1. Read @docs/ai/constitution-cheatsheet.md first — this contains all DO/DO NOT rules,
-   naming conventions, file structure, and critical runtime facts
-2. For deeper context on a specific area, reference @docs/ai/constitution.md:
-   - Section 4 (Data Model) when creating or modifying types/entities
-   - Section 5 (API Contract) when adding API calls
-   - Section 6 (Runtime Behaviour) when adding new flows or middleware
-   - Section 7 (Infrastructure) when working with build/deploy/CI config files
-   - Section 11 (Technical Debt) when working in a domain with known debt
-3. If working in a Sensitive Zone listed in the cheat sheet: flag for human review
-4. If your generated code introduces a pattern NOT covered by the constitution:
-   note it at the end of your response as "New pattern introduced: <description>"
+1. Read @docs/ai/CONSTITUTION.md — this is the fixed cornerstone with all rules,
+   naming conventions, file structure, tech stack, and DO/DO NOT lists
+2. For rare deep dives (full data model, endpoint inventory, runtime traces, debt register),
+   reference `docs/ai/full-analysis-*.md`

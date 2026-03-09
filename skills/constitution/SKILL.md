@@ -1,20 +1,22 @@
 ---
 name: constitution
 description: >
-  Orchestrate full codebase analysis to produce docs/ai/constitution.md.
+  Orchestrate full codebase analysis to produce docs/ai/full-analysis-YYYY-MM-DD.md
+  (detailed reference) and docs/ai/CONSTITUTION.md (compact cornerstone for downstream agents).
   Handles pre-flight setup, parallel scanning, auditing, aggregation, and
   curation. Invoke with /constitution or "generate constitution" or
   "analyse codebase for AI constitution".
-version: 2.1.0
+version: 3.0.0
 ---
 
 # Codebase Constitution Generator
 
 ## Purpose
 
-Produce `docs/ai/constitution.md` — a durable, audited AI-generation contract
-for a brownfield project — by running a Prepare → Map → Audit → Reduce → Curate
-pipeline using parallel Cursor subagents.
+Produce `docs/ai/full-analysis-YYYY-MM-DD.md` (detailed reference) and
+`docs/ai/CONSTITUTION.md` (compact cornerstone for all downstream agents) —
+a durable, audited AI-generation contract for a brownfield project — by running
+a Prepare → Map → Audit → Reduce → Curate pipeline using parallel Cursor subagents.
 
 ## Phase 0: Pre-flight (do this before spawning any subagent)
 
@@ -249,10 +251,10 @@ Invoke the `constitution-curator` skill.
 
 Update `_pipeline.json` → `"phase": "complete"`.
 
-1. Verify `docs/ai/constitution.md` exists
-2. Verify `docs/ai/constitution-cheatsheet.md` exists
+1. Verify `docs/ai/full-analysis-YYYY-MM-DD.md` exists (dated reference document)
+2. Verify `docs/ai/CONSTITUTION.md` exists (compact cornerstone for downstream agents)
 3. Verify `docs/ai/constitution-viewer.html` exists
-4. Report section count and word estimate for constitution and cheat sheet
+4. Report section count and word estimate for full analysis and CONSTITUTION.md
 5. Report: "Viewer available at docs/ai/constitution-viewer.html — open in browser"
 6. Ask: "Would you like to expand any section or re-run specific analysts?"
 7. Preserve `_corrections.json`: if `.cursor/constitution-tmp/_corrections.json` exists,

@@ -12,7 +12,7 @@ version: 2.1.0
 ## Purpose
 
 Merge all scan reports into one verified intermediate structure that the curator
-writes into `docs/ai/constitution.md`.
+uses to produce `docs/ai/full-analysis-YYYY-MM-DD.md` and `docs/ai/CONSTITUTION.md`.
 
 ## Steps
 

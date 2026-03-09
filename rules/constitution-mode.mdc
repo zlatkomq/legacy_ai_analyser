@@ -15,10 +15,9 @@ When generating or updating the constitution:
 3. ALWAYS write outputs to `docs/ai/` not the project root
 4. ALWAYS spawn domain-scanner agents per directory — never one agent for the whole codebase
 5. ALWAYS run the auditor BEFORE aggregation — never skip this step
-6. NEVER write constitution.md directly from main context — go through aggregator + curator
+6. NEVER write `full-analysis-*.md` or `CONSTITUTION.md` directly from main context — go through aggregator + curator
 7. Surface audit findings to the user — never silently discard contested claims
 8. Report progress after each phase: Pre-flight → Scan → Audit → Aggregate → Curate
 9. If overall audit confidence is "low": tell the user and offer to re-run specific agents
 10. Use per-agent status files (`_status-*.json`) in `.cursor/constitution-tmp/` to track pipeline progress — never rely solely on output file existence checks
-11. Use `/constitution-patch` to correct errors in the constitution — never edit `docs/ai/constitution.md` directly. Corrections are logged in `_corrections.json` and survive re-runs
-12. Prefer `/constitution-incremental` when a previous scan exists (`_scan-metadata.json`) — only use full `/constitution` when no prior scan exists or when a full refresh is explicitly requested
+11. Use `/constitution-patch` to correct errors in the full analysis — never edit `docs/ai/full-analysis-*.md` directly. Corrections are logged in `_corrections.json` and survive re-runs
