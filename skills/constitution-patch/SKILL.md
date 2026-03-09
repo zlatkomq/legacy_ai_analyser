@@ -3,8 +3,8 @@ name: constitution-patch
 description: >
   Apply a manual correction to the constitution. Accepts a section reference,
   error description, and correct information. Updates full-analysis-*.md, CONSTITUTION.md,
-  viewer, and logs the correction for future re-runs. Invoke with /constitution-patch
-  or "correct the constitution" or "fix constitution error".
+  constitution.json, viewer, and logs the correction for future re-runs. Invoke with
+  /constitution-patch or "correct the constitution" or "fix constitution error".
 version: 2.0.0
 ---
 
@@ -53,7 +53,12 @@ comment immediately after the corrected text:
 Read `docs/ai/CONSTITUTION.md`. If the corrected content appears in the
 compact cornerstone (even in condensed form), update it there too with the same annotation.
 
-### 5. Update viewer
+### 5. Update constitution.json
+
+Read `docs/ai/constitution.json`. If the corrected content affects any field in the
+JSON (e.g., correcting the ORM name updates `data_model.orm.name`), apply the change.
+
+### 5.5. Update viewer
 
 Read `docs/ai/constitution-viewer.html`. Find the corresponding data in the embedded
 `CONSTITUTION_DATA` JSON object and update it to reflect the correction.
@@ -73,7 +78,7 @@ Append a new correction entry:
       "original_claim": "<what was wrong>",
       "corrected_claim": "<correct info>",
       "source": "<user-provided source or 'user correction'>",
-      "applied_to": ["full-analysis-YYYY-MM-DD.md", "CONSTITUTION.md", "viewer.html"]
+      "applied_to": ["full-analysis-YYYY-MM-DD.md", "CONSTITUTION.md", "constitution.json", "viewer.html"]
     }
   ]
 }

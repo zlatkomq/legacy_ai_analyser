@@ -112,7 +112,8 @@ your-project/
 │       └── .gitignore
 ├── docs/
 │   └── ai/
-│       ├── CONSTITUTION.md              ← COMPACT CORNERSTONE (primary output)
+│       ├── CONSTITUTION.md              ← COMPACT CORNERSTONE (primary output, fixed 10-section contract)
+│       ├── constitution.json            ← MACHINE-READABLE CONSTITUTION (structured lookups)
 │       ├── full-analysis-YYYY-MM-DD.md  ← DETAILED 13-SECTION REFERENCE
 │       ├── constitution-viewer.html     ← INTERACTIVE BROWSER UI
 │       └── constitution-fragments/      ← intermediate MD fragments (inspectable)
@@ -139,8 +140,10 @@ constitution-generator/
 ├── skills/
 │   ├── constitution/SKILL.md            ← Master orchestrator
 │   ├── constitution-aggregator/SKILL.md ← Merge verified reports
-│   ├── constitution-curator/SKILL.md    ← Produce final outputs
+│   ├── constitution-curator/SKILL.md    ← Produce final outputs (MD + JSON + HTML)
 │   └── constitution-patch/SKILL.md      ← Manual corrections
+├── docs/
+│   └── DOWNSTREAM-GUIDE.md             ← Integration patterns for downstream agents
 ├── rules/
 │   └── constitution-mode.mdc            ← Orchestration discipline
 └── .cursorignore                        ← Baseline exclusions template
