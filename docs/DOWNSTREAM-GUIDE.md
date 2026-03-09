@@ -5,6 +5,17 @@ the constitution outputs.
 
 ---
 
+## Primary use (for now): preamble / guardrails
+
+**Use the constitution as preamble in the prompt.** Paste `CONSTITUTION.md` (or the
+sections that matter for the task) into the system prompt or context so the AI treats
+it as guardrails: constraints, patterns, and DO/DO NOT rules it must respect.
+
+No need for JSON lookups or section-by-section pulls unless you want them. The rest
+of this guide describes optional, deeper integration when you need it.
+
+---
+
 ## Outputs available
 
 | File | Format | Size | Use case |

@@ -111,20 +111,18 @@ Check sections marked `[NEEDS REVIEW]` — these are areas where the analysis fo
 
 ### Step 3 — Use it in your workflow
 
-`CONSTITUTION.md` is now the base context for downstream AI work:
+**Primary use:** Use `CONSTITUTION.md` as **preamble / guardrails** in the prompt for
+your downstream agents (spec, design, tasks, dev, QA). Paste it (or the relevant part)
+into the system prompt or context so the AI respects the project’s constraints, patterns,
+and DO/DO NOT rules.
 
-- **Spec** — ask the AI what should change; it will use the constitution to understand current constraints
-- **Design** — ask the AI how to implement it; it will respect existing architecture, patterns, and invariants
-- **Tasks / Dev / QA** — your downstream agents reference `CONSTITUTION.md` directly
+- **Spec** — constitution in preamble so the AI understands current constraints before writing the spec
+- **Design** — constitution in preamble so the AI respects architecture and patterns
+- **Tasks / Dev / QA** — same: constitution as preamble so outputs stay within guardrails
 
-For deep dives (full data model, endpoint inventory, runtime traces, debt register),
-reference the detailed `docs/ai/full-analysis-*.md`.
-
-For structured lookups in agent code (e.g. "what ORM?", "what auth?", "list DO NOT rules"),
-use `docs/ai/constitution.json` — a machine-readable version of the constitution.
-
-For detailed integration patterns per downstream stage (spec, design, tasks, implementation, QA),
-see [docs/DOWNSTREAM-GUIDE.md](docs/DOWNSTREAM-GUIDE.md).
+Optional: for deep dives use `docs/ai/full-analysis-*.md`; for structured lookups use
+`docs/ai/constitution.json`. See [docs/DOWNSTREAM-GUIDE.md](docs/DOWNSTREAM-GUIDE.md) for
+full integration patterns when you need them.
 
 ### Keeping it up to date
 

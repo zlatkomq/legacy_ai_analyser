@@ -19,11 +19,9 @@ spec, design, task composition, development, and QA.
 → Low-confidence or `[NEEDS REVIEW]` sections must not be treated as authoritative
   without human validation.
 
-**When working on source code:**
-→ Check `docs/ai/CONSTITUTION.md` for project conventions and rules.
-→ For full detail, reference `docs/ai/full-analysis-*.md`.
-
-**When working on downstream artifacts (spec/design/tasks/QA):**
-→ Use the constitution to understand what already exists, what constraints must be
-  preserved, and where the evidence is weak.
+**When working on source code or downstream artifacts (spec/design/tasks/QA):**
+→ Use `docs/ai/CONSTITUTION.md` as **preamble / guardrails** in the prompt — paste it
+  (or the relevant part) so the AI respects project conventions, constraints, and
+  DO/DO NOT rules.
 → Let the spec define `what`; let the design define `how`.
+→ For full detail, reference `docs/ai/full-analysis-*.md` when needed.
